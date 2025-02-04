@@ -18,7 +18,7 @@ int operator == (const Vector2D &a1, const Vector2D &a2)
 {
     double eps = 0.000001;
     auto v1 = a1.x() - a2.x();
-    auto v2 = a1.y() == a2.y();
+    auto v2 = a1.y() - a2.y();
     return v1 < eps && v1 > -eps && v2 < eps && v2 > -eps;
 }
 

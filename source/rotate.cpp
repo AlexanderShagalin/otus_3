@@ -9,12 +9,7 @@ void Rotate::execute()
 {
     if(m_obj != nullptr)
     {
-        auto newAngle = m_obj->getAngle() + m_obj->getAngleSpeed();
-        if(newAngle > 360.0)
-            newAngle -= 360.0;
-        if(newAngle < 0.0)
-            newAngle += 360.0;
-        m_obj->setAngle(newAngle);
+        m_obj->setAngle(m_obj->getAngle() + m_obj->getAngleSpeed());
     }
     else
         throw std::runtime_error("Rotate: nullptr exception");
