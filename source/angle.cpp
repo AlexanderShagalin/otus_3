@@ -1,8 +1,13 @@
 #include "angle.h"
 
-Angle::Angle(double angle) :
-    m_angle(angle)
-{}
+Angle::Angle(double angle)
+{
+    m_angle = angle;
+    if(m_angle > 360.0)
+        m_angle = m_angle - 360.0;
+    if(m_angle < 0.0)
+        m_angle = m_angle + 360.0;
+}
 
 double Angle::angle() const
 {
@@ -11,15 +16,12 @@ double Angle::angle() const
 
 int operator == (const Angle &a1, const Angle &a2)
 {
-    return a1.angle() == a2.angle();
+    double eps = 0.000001;
+    auto v = a1.angle() - a2.angle();
+    return v < eps && v > -eps;
 }
 
 Angle operator + (const Angle &a1, const Angle &a2)
 {
-    double newAngle = a1.angle() + a2.angle();
-    if(newAngle > 360.0)
-        newAngle = newAngle - 360.0;
-    if(newAngle < 0.0)
-        newAngle = newAngle + 360.0;
-    return Angle(newAngle);
+    return Angle(a1.angle() + a2.angle());
 }

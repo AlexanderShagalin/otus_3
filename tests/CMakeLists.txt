@@ -17,6 +17,10 @@ find_package(GTest REQUIRED)
 include_directories(${INCLUDE_DIRECTORIES}, /usr/include)
 include_directories(${INCLUDE_DIRECTORIES}, ${PRJ_INC_DIR})
 
+
+add_executable(test_angle main.cpp test_angle.cpp ${PRJ_SRC_DIR}/angle.cpp)
+target_link_libraries(test_angle PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} Threads::Threads )
+
 add_executable(test_vector2d main.cpp test_vector2d.cpp ${PRJ_SRC_DIR}/vector2d.cpp)
 target_link_libraries(test_vector2d PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} Threads::Threads )
 
