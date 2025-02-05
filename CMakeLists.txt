@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SRC ./source)
 include_directories(./include)
 
-add_executable(battleship   ${SRC}/main.cpp 
+add_executable(battlefield  ${SRC}/main.cpp
                             ${SRC}/angle.cpp 
                             ${SRC}/vector2d.cpp 
                             ${SRC}/moveforward.cpp
@@ -16,7 +16,7 @@ add_executable(battleship   ${SRC}/main.cpp
                             ${SRC}/battlecruiser.cpp
                              )
 
-install(TARGETS battleship
+install(TARGETS battlefield
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 add_subdirectory(tests)
