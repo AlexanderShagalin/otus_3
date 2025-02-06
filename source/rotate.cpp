@@ -1,9 +1,10 @@
 #include <stdexcept>
 #include "rotate.h"
 
-Rotate::Rotate(std::shared_ptr<IRotatable> obj)
+Rotate::Rotate(std::shared_ptr<IRotatable> obj)    
     : m_obj(obj)
-{}
+{
+}
 
 void Rotate::execute()
 {

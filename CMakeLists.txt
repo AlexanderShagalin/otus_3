@@ -8,12 +8,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SRC ./source)
 include_directories(./include)
 
-add_executable(battlefield  ${SRC}/main.cpp
+add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/angle.cpp 
                             ${SRC}/vector2d.cpp 
                             ${SRC}/moveforward.cpp
                             ${SRC}/rotate.cpp
                             ${SRC}/battlecruiser.cpp
+                            ${SRC}/main.cpp
                              )
 
 install(TARGETS battlefield
