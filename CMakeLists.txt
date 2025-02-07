@@ -11,6 +11,8 @@ include_directories(./include)
 add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/angle.cpp 
                             ${SRC}/vector2d.cpp 
+                            ${SRC}/exceptionmanager.cpp
+                            ${SRC}/logexception.cpp
                             ${SRC}/moveforward.cpp
                             ${SRC}/rotate.cpp
                             ${SRC}/battlecruiser.cpp

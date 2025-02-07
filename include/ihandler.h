@@ -1,15 +1,14 @@
-#ifndef IEXCEPTIONHANDLER_H
-#define IEXCEPTIONHANDLER_H
+#ifndef IHANDLER_H
+#define IHANDLER_H
 
-#include <exception>
 #include <memory>
 
-class IExceptionHandler
+class IHandler
 {
 public:
-    virtual ~IExceptionHandler(){}
-    virtual void handle(std::exception &e) = 0;
+    virtual ~IHandler(){}
+    virtual void handle() = 0;
 };
 
-typedef std::shared_ptr<IExceptionHandler> IExceptionHandlerPtr;
-#endif // IEXCEPTIONHANDLER_H
+typedef std::shared_ptr<IHandler> IHandlerPtr;
+#endif // IHANDLER_H
