@@ -12,12 +12,14 @@ void RetryCommand::execute()
 {
     if(m_commandQueue == nullptr)
     {
-        std::runtime_error("m_commandQueue is nullptr");
+        throw std::runtime_error("m_commandQueue is nullptr");
+        return;
     }   
 
     if(m_command == nullptr)
     {
-        std::runtime_error("m_command is nullptr");
+        throw std::runtime_error("m_command is nullptr");
+        return;
     }
 
     m_commandQueue->push_back(m_command);
