@@ -1,11 +1,1 @@
-#include "logexception.cpp"
-
-LogException::LogException()
-{
-
-}
-
-LogException::~LogException()
-{
-
-}
+#include "logexception.h"

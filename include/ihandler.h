@@ -2,12 +2,13 @@
 #define IHANDLER_H
 
 #include <memory>
+#include "icommand.h"
 
 class IHandler
 {
 public:
     virtual ~IHandler(){}
-    virtual void handle() = 0;
+    virtual void handle(ICommandPtr command) = 0;
 };
 
 typedef std::shared_ptr<IHandler> IHandlerPtr;

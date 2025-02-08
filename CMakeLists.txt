@@ -13,8 +13,10 @@ add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/vector2d.cpp 
                             ${SRC}/exceptionmanager.cpp
                             ${SRC}/logexception.cpp
+                            ${SRC}/loghandler.cpp
                             ${SRC}/moveforward.cpp
                             ${SRC}/rotate.cpp
+                            ${SRC}/logcommand.cpp
                             ${SRC}/battlecruiser.cpp
                             ${SRC}/main.cpp
                              )

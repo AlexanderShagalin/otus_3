@@ -29,3 +29,9 @@ target_link_libraries(test_rotate PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRAR
 
 add_executable(test_move main.cpp test_move.cpp ${PRJ_SRC_DIR}/vector2d.cpp ${PRJ_SRC_DIR}/moveforward.cpp )
 target_link_libraries(test_move PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+
+add_executable(test_logcommand main.cpp test_logcommand.cpp ${PRJ_SRC_DIR}/logcommand.cpp )
+target_link_libraries(test_logcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+
+add_executable(test_retrycommand main.cpp test_retrycommand.cpp ${PRJ_SRC_DIR}/retrycommand.cpp )
+target_link_libraries(test_retrycommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )

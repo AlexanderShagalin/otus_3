@@ -1,19 +1,18 @@
 #include "exceptionmanager.h"
 
-std::map<std::pair<std::type_info, std::type_info>, IHandlerPtr> ExceptionManager::m_handlerList = 
-            std::map<std::pair<std::type_info, std::type_info>, IHandlerPtr>();
+std::map<std::pair<size_t, size_t>, IHandlerPtr> ExceptionManager::m_handlerList;
 
 void ExceptionManager::handle(const std::exception& e, ICommandPtr command) 
 {
-    auto it = m_handlerList.count(std::make_pair<std::type_info, std::type_info>(typeid(command), typeid(e)));
+    auto source = std::make_pair<size_t, size_t>(typeid(*command).hash_code(), typeid(e).hash_code());
+    auto it = m_handlerList.find(source);
     if(it != m_handlerList.end())
-        *it();
+        it->second->handle(command);
 }
 
-void ExceptionManager::registerHandler(std::pair<std::type_info, std::type_info> source, IHandlerPtr handler);
+void ExceptionManager::registerHandler(ICommandPtr command, std::exception e, IHandlerPtr handler)
 {
-    auto it = m_handlerList.count(source);
-    if(it == m_handlerList.end())
-        m_handlerList.append(source, handler)
-
+    auto source = std::make_pair<size_t, size_t>(typeid(*command).hash_code(), typeid(e).hash_code());
+    if(m_handlerList.count(source)== 0)
+        m_handlerList.insert({ source, handler });
 }

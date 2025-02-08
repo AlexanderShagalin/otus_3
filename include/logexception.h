@@ -7,8 +7,7 @@
 class LogException : public std::exception
 {
 public:
-    LogException();
+    LogException() {}
 };
 
-typedef std::shared_ptr<LogException> LogExceptionPtr;
 #endif // LOGEXCEPTION_H
