@@ -33,5 +33,5 @@ target_link_libraries(test_move PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIE
 add_executable(test_logcommand main.cpp test_logcommand.cpp ${PRJ_SRC_DIR}/logcommand.cpp )
 target_link_libraries(test_logcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
 
-add_executable(test_retrycommand main.cpp test_retrycommand.cpp ${PRJ_SRC_DIR}/retrycommand.cpp )
-target_link_libraries(test_retrycommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+add_executable(test_repeatcommand main.cpp test_repeatcommand.cpp ${PRJ_SRC_DIR}/repeatcommand.cpp )
+target_link_libraries(test_repeatcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )

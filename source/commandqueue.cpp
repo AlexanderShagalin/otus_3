@@ -1,4 +1,3 @@
-#include "commandexception.h"
 #include "commandqueue.h"
 #include "moveforward.h"
 

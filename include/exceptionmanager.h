@@ -8,7 +8,6 @@
 #include <list>
 #include "icommand.h"
 #include "ihandler.h"
-#include "commandexception.h"
 
 class ExceptionManager
 {

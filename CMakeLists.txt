@@ -17,6 +17,8 @@ add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/moveforward.cpp
                             ${SRC}/rotate.cpp
                             ${SRC}/logcommand.cpp
+                            ${SRC}/repeatcommand.cpp
+                            ${SRC}/retrycommand.cpp
                             ${SRC}/battlecruiser.cpp
                             ${SRC}/main.cpp
                              )

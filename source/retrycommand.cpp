@@ -1,6 +1,8 @@
+
 #include <stdexcept>
 
 #include "retrycommand.h"
+#include "retryexception.h"
  
 RetryCommand::RetryCommand(ICommandQueuePtr commandQueue, ICommandPtr command)
 {
@@ -22,5 +24,18 @@ void RetryCommand::execute()
         return;
     }
 
-    m_commandQueue->push_back(m_command);
+    try
+    {
+        m_commandQueue->push_back(m_command);
+    }
+    catch(const std::exception& e)
+    {
+        throw RetryException();
+    }
+    
+}
+
+ICommandPtr RetryCommand::getCommand()
+{
+    return m_command;
 }
