@@ -14,6 +14,7 @@ add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/angle.cpp 
                             ${SRC}/vector2d.cpp 
                             ${SRC}/exceptionmanager.cpp
+                            ${SRC}/logger.cpp
                             ${SRC}/logexception.cpp
                             ${SRC}/loghandler.cpp
                             ${SRC}/moveforward.cpp
@@ -21,9 +22,14 @@ add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/logcommand.cpp
                             ${SRC}/repeatcommand.cpp
                             ${SRC}/retrycommand.cpp
+                            ${SRC}/retryhandler.cpp
+                            ${SRC}/secondretrycommand.cpp
+                            ${SRC}/secondretryhandler.cpp
+                            ${SRC}/strategy_1.cpp
+                            ${SRC}/strategy_2.cpp
                             ${SRC}/battlecruiser.cpp
                             ${SRC}/main.cpp
-                             )
+                            )
 
 install(TARGETS battlefield
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

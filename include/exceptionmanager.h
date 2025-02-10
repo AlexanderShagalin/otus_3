@@ -15,8 +15,8 @@ class ExceptionManager
 public:
    void handle(const std::exception& e, ICommandPtr command);
 
-    // static void registerHandler(std::pair<std::type_info, std::type_info> source, IHandlerPtr handler);
-    static void registerHandler(ICommandPtr command, std::exception e, IHandlerPtr handler);
+    static void registerHandler(ICommandPtr command, const std::exception& e, IHandlerPtr handler);
+    static void clear();
 };
 
 typedef std::shared_ptr<ExceptionManager> ExceptionManagerPtr;

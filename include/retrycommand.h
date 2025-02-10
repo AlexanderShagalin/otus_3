@@ -7,13 +7,11 @@
 
 class RetryCommand : public ICommand
 {
-    ICommandQueuePtr m_commandQueue;
     ICommandPtr m_command;
 
 public:
-    RetryCommand(ICommandQueuePtr commandQueue, ICommandPtr command);
+    RetryCommand(ICommandPtr command);
     void execute() override;
-    ICommandPtr getCommand();
 };
 
 #endif // RETRYCOMMAND_H

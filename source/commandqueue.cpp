@@ -1,3 +1,4 @@
+#include "stdio.h"
 #include "commandqueue.h"
 
 CommandQueue::CommandQueue(ExceptionManagerPtr exManager, std::list<ICommandPtr> commandList) 

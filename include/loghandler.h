@@ -5,7 +5,7 @@
 #include "ilogger.h"
 #include "icommandqueue.h"
 
-class LogHandler : IHandler
+class LogHandler : public IHandler
 {
     ILoggerPtr m_logger;
     ICommandQueuePtr m_commandQueue;

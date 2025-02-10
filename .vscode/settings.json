@@ -49,6 +49,9 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "any": "cpp",
+        "variant": "cpp",
+        "*.inc": "cpp"
     }
 }

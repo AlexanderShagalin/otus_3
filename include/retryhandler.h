@@ -4,7 +4,7 @@
 #include "ihandler.h"
 #include "icommandqueue.h"
 
-class RetryHandler : IHandler
+class RetryHandler : public IHandler
 {
     ICommandQueuePtr m_commandQueue;
 

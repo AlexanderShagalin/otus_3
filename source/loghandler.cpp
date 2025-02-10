@@ -1,7 +1,7 @@
 #include "loghandler.h"
 #include "logcommand.h"
 
-LogHandler::LogHandler(ICommandQueuePtr commandQueue, ILoggerPtr logger)
+LogHandler::LogHandler(ICommandQueuePtr commandQueue, ILoggerPtr logger) : IHandler()
 {
     m_logger = logger;
     m_commandQueue = commandQueue;

@@ -51,3 +51,33 @@ gtest_discover_tests(test_loghandler)
 add_executable(test_retryhandler main.cpp test_retryhandler.cpp ${PRJ_SRC_DIR}/retrycommand.cpp ${PRJ_SRC_DIR}/retryhandler.cpp )
 target_link_libraries(test_retryhandler PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
 gtest_discover_tests(test_retryhandler)
+
+add_executable(test_strategy_1  main.cpp 
+                                test_strategy_1.cpp 
+                                ${PRJ_SRC_DIR}/vector2d.cpp
+                                ${PRJ_SRC_DIR}/exceptionmanager.cpp
+                                ${PRJ_SRC_DIR}/commandqueue.cpp 
+                                ${PRJ_SRC_DIR}/retrycommand.cpp 
+                                ${PRJ_SRC_DIR}/retryhandler.cpp 
+                                ${PRJ_SRC_DIR}/logcommand.cpp
+                                ${PRJ_SRC_DIR}/loghandler.cpp 
+                                ${PRJ_SRC_DIR}/moveforward.cpp 
+                                )
+target_link_libraries(test_strategy_1 PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_strategy_1)
+
+add_executable(test_strategy_2  main.cpp 
+                                test_strategy_2.cpp 
+                                ${PRJ_SRC_DIR}/vector2d.cpp
+                                ${PRJ_SRC_DIR}/exceptionmanager.cpp
+                                ${PRJ_SRC_DIR}/commandqueue.cpp 
+                                ${PRJ_SRC_DIR}/retrycommand.cpp 
+                                ${PRJ_SRC_DIR}/retryhandler.cpp 
+                                ${PRJ_SRC_DIR}/secondretrycommand.cpp 
+                                ${PRJ_SRC_DIR}/secondretryhandler.cpp 
+                                ${PRJ_SRC_DIR}/logcommand.cpp
+                                ${PRJ_SRC_DIR}/loghandler.cpp 
+                                ${PRJ_SRC_DIR}/moveforward.cpp 
+                                )
+target_link_libraries(test_strategy_2 PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_strategy_2)

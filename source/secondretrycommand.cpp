@@ -1,15 +1,15 @@
 
 #include <stdexcept>
 
-#include "retrycommand.h"
-#include "retryexception.h"
+#include "secondretrycommand.h"
+#include "secondretryexception.h"
  
-RetryCommand::RetryCommand(ICommandPtr command)
+SecondRetryCommand::SecondRetryCommand(ICommandPtr command)
 {
     m_command = command;
 }
 
-void RetryCommand::execute() 
+void SecondRetryCommand::execute() 
 {
     if(m_command == nullptr)
     {
@@ -23,6 +23,6 @@ void RetryCommand::execute()
     }
     catch(const std::exception& e)
     {
-        throw RetryException(e);
+        throw SecondRetryException(e);
     }
 }
