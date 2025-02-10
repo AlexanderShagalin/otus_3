@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SRC ./source)
 include_directories(./include)
 
+enable_testing()
+
 add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/angle.cpp 
                             ${SRC}/vector2d.cpp 

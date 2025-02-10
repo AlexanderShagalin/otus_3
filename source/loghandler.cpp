@@ -1,11 +1,14 @@
 #include "loghandler.h"
+#include "logcommand.h"
 
-LogHandler::LogHandler(ILoggerPtr logger)
+LogHandler::LogHandler(ICommandQueuePtr commandQueue, ILoggerPtr logger)
 {
     m_logger = logger;
+    m_commandQueue = commandQueue;
 }
 
 void LogHandler::handle(ICommandPtr command)
 {
-    m_logger->log("exception logged");
+    if(m_commandQueue && m_logger && command)
+        m_commandQueue->push_back(std::make_shared<LogCommand>(m_logger, "exception logged"));
 }

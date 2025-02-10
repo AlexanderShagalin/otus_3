@@ -1,10 +1,7 @@
 #include "commandqueue.h"
-#include "moveforward.h"
 
 CommandQueue::CommandQueue(ExceptionManagerPtr exManager, std::list<ICommandPtr> commandList) 
-{
-    m_commandList = {std::make_shared<MoveForward>(nullptr), std::make_shared<MoveForward>(nullptr)};
-}
+{ }
 
 void CommandQueue::next()
 {
