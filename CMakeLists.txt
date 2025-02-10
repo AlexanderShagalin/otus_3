@@ -24,6 +24,7 @@ add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/retrycommand.cpp
                             ${SRC}/retryhandler.cpp
                             ${SRC}/checkfuelcommand.cpp
+                            ${SRC}/burnfuelcommand.cpp
                             ${SRC}/secondretrycommand.cpp
                             ${SRC}/secondretryhandler.cpp
                             ${SRC}/strategy_1.cpp
