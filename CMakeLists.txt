@@ -35,3 +35,4 @@ install(TARGETS battlefield
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 add_subdirectory(tests)
+
