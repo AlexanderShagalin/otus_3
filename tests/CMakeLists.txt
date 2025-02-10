@@ -81,3 +81,7 @@ add_executable(test_strategy_2  main.cpp
                                 )
 target_link_libraries(test_strategy_2 PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
 gtest_discover_tests(test_strategy_2)
+
+add_executable(test_checkfuelcommand main.cpp test_checkfuelcommand.cpp ${PRJ_SRC_DIR}/checkfuelcommand.cpp )
+target_link_libraries(test_checkfuelcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_checkfuelcommand)
