@@ -93,3 +93,7 @@ gtest_discover_tests(test_burnfuelcommand)
 add_executable(test_macrocommand main.cpp test_macrocommand.cpp ${PRJ_SRC_DIR}/macrocommand.cpp )
 target_link_libraries(test_macrocommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
 gtest_discover_tests(test_macrocommand)
+
+add_executable(test_changevelocitycommand main.cpp test_changevelocitycommand.cpp ${PRJ_SRC_DIR}/vector2d.cpp ${PRJ_SRC_DIR}/changevelocitycommand.cpp )
+target_link_libraries(test_changevelocitycommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_changevelocitycommand)
