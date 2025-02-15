@@ -97,3 +97,7 @@ gtest_discover_tests(test_macrocommand)
 add_executable(test_changevelocitycommand main.cpp test_changevelocitycommand.cpp ${PRJ_SRC_DIR}/vector2d.cpp ${PRJ_SRC_DIR}/changevelocitycommand.cpp )
 target_link_libraries(test_changevelocitycommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
 gtest_discover_tests(test_changevelocitycommand)
+
+add_executable(test_maneuveringcommand main.cpp test_maneuveringcommand.cpp ${PRJ_SRC_DIR}/vector2d.cpp ${PRJ_SRC_DIR}/angle.cpp ${PRJ_SRC_DIR}/maneuveringcommand.cpp )
+target_link_libraries(test_maneuveringcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_maneuveringcommand)

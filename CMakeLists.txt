@@ -28,6 +28,7 @@ add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/secondretrycommand.cpp
                             ${SRC}/changevelocitycommand.cpp
                             ${SRC}/macrocommand.cpp
+                            ${SRC}/maneuveringcommand.cpp
                             ${SRC}/secondretryhandler.cpp
                             ${SRC}/strategy_1.cpp
                             ${SRC}/strategy_2.cpp
