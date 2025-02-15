@@ -81,3 +81,23 @@ add_executable(test_strategy_2  main.cpp
                                 )
 target_link_libraries(test_strategy_2 PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
 gtest_discover_tests(test_strategy_2)
+
+add_executable(test_checkfuelcommand main.cpp test_checkfuelcommand.cpp ${PRJ_SRC_DIR}/checkfuelcommand.cpp )
+target_link_libraries(test_checkfuelcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_checkfuelcommand)
+
+add_executable(test_burnfuelcommand main.cpp test_burnfuelcommand.cpp ${PRJ_SRC_DIR}/burnfuelcommand.cpp )
+target_link_libraries(test_burnfuelcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_burnfuelcommand)
+
+add_executable(test_macrocommand main.cpp test_macrocommand.cpp ${PRJ_SRC_DIR}/macrocommand.cpp )
+target_link_libraries(test_macrocommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_macrocommand)
+
+add_executable(test_changevelocitycommand main.cpp test_changevelocitycommand.cpp ${PRJ_SRC_DIR}/vector2d.cpp ${PRJ_SRC_DIR}/changevelocitycommand.cpp )
+target_link_libraries(test_changevelocitycommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_changevelocitycommand)
+
+add_executable(test_maneuveringcommand main.cpp test_maneuveringcommand.cpp ${PRJ_SRC_DIR}/vector2d.cpp ${PRJ_SRC_DIR}/angle.cpp ${PRJ_SRC_DIR}/maneuveringcommand.cpp )
+target_link_libraries(test_maneuveringcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_maneuveringcommand)

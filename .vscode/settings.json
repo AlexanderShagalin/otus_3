@@ -52,6 +52,15 @@
         "format": "cpp",
         "any": "cpp",
         "variant": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "condition_variable": "cpp",
+        "ctime": "cpp",
+        "map": "cpp",
+        "ratio": "cpp",
+        "iostream": "cpp",
+        "mutex": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     }
 }
