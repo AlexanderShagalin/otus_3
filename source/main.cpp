@@ -3,6 +3,8 @@
 #include "strategy_1.h"
 #include "strategy_2.h"
 
+#include "ioc.h"
+
 using namespace std;
 
 class NonMovableObject : public IMovable
@@ -23,5 +25,7 @@ int main()
     Strategy_2 st2(std::make_shared<MoveForward>(std::make_shared<NonMovableObject>()));
     st1.run();
 
+    auto obj = IoC::resolve<Vector2D>("Vector2D", 7.0, 10.1);
+    printf("%f %f\n", obj->x(), obj->y());
     return 0;
 }

@@ -32,6 +32,7 @@ add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/secondretryhandler.cpp
                             ${SRC}/strategy_1.cpp
                             ${SRC}/strategy_2.cpp
+                            ${SRC}/ioc.cpp
                             ${SRC}/battlecruiser.cpp
                             ${SRC}/main.cpp
                             )
