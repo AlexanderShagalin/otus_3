@@ -7,56 +7,88 @@
 #include <map>
 #include "functional"
 
+// template <typename T>
+// struct IoCContainer
+// {
+//     static std::map<std::string, T> relevant_map;
+// };
 
-class IoCContainerBase
+// template <typename T>
+// std::map<std::string, T> IoCContainer<T>::relevant_map;
+
+
+// class IoC
+// {
+//     IoC() = delete;                      //disable constructor
+//     IoC(const IoC&) = delete;            //disable copy-constructor
+//     IoC& operator=(const IoC&) = delete; //disable copy-assignment
+
+
+// public:
+//     template <typename Return_Type, typename FuncPtr_Type, typename ... Args> 
+//     static Return_Type resolve(std::string path, FuncPtr_Type funcptr, Args ... args) 
+//     {
+
+//         if(IoCContainer<FuncPtr_Type>::relevant_map.find(path) == IoCContainer<FuncPtr_Type>::relevant_map.end())
+//         {
+//             auto lm = [&, args...](FuncPtr_Type obj){
+//                 IoCContainer<FuncPtr_Type>::relevant_map.insert({path, obj});
+//                 return obj(args...);
+//             };
+//             return lm(funcptr);
+//         }
+
+        
+//         return IoCContainer<FuncPtr_Type>::relevant_map.find(path)->second(args...);
+//     }
+// };
+
+
+template <typename T>
+struct IoCContainer
 {
-public:    
-    virtual ~IoCContainerBase() {}
+    static std::map<std::string, T> relevant_map;
 };
 
 template <typename T>
-class IoCContainer : public IoCContainerBase
-{
-public:
-    T func;
-};
+std::map<std::string, T> IoCContainer<T>::relevant_map;
+
 
 class IoC
 {
-    static std::map<std::string, std::shared_ptr<IoCContainerBase>> m_scope;
-
     IoC() = delete;                      //disable constructor
     IoC(const IoC&) = delete;            //disable copy-constructor
     IoC& operator=(const IoC&) = delete; //disable copy-assignment
 
 
 public:
-    template <typename Return_Type, typename FuncPtr_Type, typename ... Args> 
-    static std::shared_ptr<Return_Type> resolve(std::string path, FuncPtr_Type lambda , Args&& ... args) 
+    template <class Return_Type, typename ... Args> 
+    static Return_Type resolve(std::string path, Args ... args) 
     {
-        // auto lx = [&, lambda, args...](){ 
-        //     return (*lambda)(args...);
-        // };
+        // auto func = std::forward<Args>(args);
 
-        if(m_scope.find(path) == m_scope.end())
+        auto&& arg = std::get<>(
+            std::forward_as_tuple(
+                std::forward<Args>(args)...));
+        auto lm = [&, arg](){
+            IoCContainer<Return_Type>::relevant_map.insert({path, arg});
+            return arg();
+        };
+
+        // if(IoCContainer<Return_Type>::relevant_map.find(path) == IoCContainer<Return_Type>::relevant_map.end())
         {
-            auto  cont = std::make_shared<IoCContainer<FuncPtr_Type>>();
-            cont->func = lambda;
-            m_scope.insert({path, cont});
-            return nullptr;
+        //      auto lm = [&, args...](FuncPtr_Type obj){
+        //          IoCContainer<Return_Type, FuncPtr_Type>::relevant_map.insert({path, obj});
+        //          return obj(args...);
+        //      };
+
+        //     std::cout << "create" << std::endl;
+        //      return lm(funcptr);
         }
-        
-        auto x = std::dynamic_pointer_cast<IoCContainer<FuncPtr_Type>>(m_scope.find(path)->second);
-        if(x != nullptr)
-        {
-            std::cout << "Done" << std::endl;
-            // return x->func(3.0, 2.0);            
-            return x->func(args...);
-        }
-        else
-            std::cout << "Error" << std::endl;
-        
-        return nullptr;
+
+        // std::cout << "load" << std::endl;
+        // return IoCContainer<Return_Type, FuncPtr_Type>::relevant_map.find(path)->second(args...);
+         return Return_Type();
     }
 };
 
