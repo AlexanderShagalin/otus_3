@@ -35,18 +35,33 @@ int main()
     // );
 
     // auto result2 = IoC::resolve<Vector2D>("Vector2D.getVector2D", 
-    //     std::function<void(void)>(),
+    //     std::function<Vector2D(double, double)>(),
     //     7.0,
     //     9.1
     // );
 
-        auto result2 = IoC::resolve<Vector2D>("Vector2D.getVector2D", 
-        std::function<void(void)>([](){
-            std::cout << "asdsads" << std::endl;
-        })
+    IoC::__resolve<std::shared_ptr<Vector2D>>("Vector2D.getVector2D", std::function<std::shared_ptr<Vector2D>(double, double)>([](double x, double y){
+        auto vec = std::make_shared<Vector2D>(x, y);
+        return vec;
+    })
     );
 
-    // printf("%f %f\n", result1.x(), result1.y());
-    // printf("%f %f\n", result2.x(), result2.y());
+    auto result_1 = IoC::__resolve<std::shared_ptr<Vector2D>>("Vector2D.getVector2D", 10.4, 4.9);
+
+    if(result_1)
+        printf("%f %f\n", result_1->x(), result_1->y());
+
+
+    IoC::__resolve<std::shared_ptr<Vector2D>>("Vector2D.getVector2D_1", std::function<std::shared_ptr<Vector2D>()>([](){
+        auto vec = std::make_shared<Vector2D>();
+        return vec;
+    })
+    );
+
+    auto result_2 = IoC::__resolve<std::shared_ptr<Vector2D>>("Vector2D.getVector2D_1");
+
+    if(result_2)
+        printf("%f %f\n", result_2->x(), result_2->y());
+        
     return 0;
 }

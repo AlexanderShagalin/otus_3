@@ -5,54 +5,18 @@
 #include <string>
 #include <memory>
 #include <map>
-#include "functional"
+#include <functional>
+#include <stdexcept>
 
-// template <typename T>
-// struct IoCContainer
-// {
-//     static std::map<std::string, T> relevant_map;
-// };
+struct IoCItemBase {
+    virtual ~IoCItemBase() = default;
+ };
 
-// template <typename T>
-// std::map<std::string, T> IoCContainer<T>::relevant_map;
-
-
-// class IoC
-// {
-//     IoC() = delete;                      //disable constructor
-//     IoC(const IoC&) = delete;            //disable copy-constructor
-//     IoC& operator=(const IoC&) = delete; //disable copy-assignment
-
-
-// public:
-//     template <typename Return_Type, typename FuncPtr_Type, typename ... Args> 
-//     static Return_Type resolve(std::string path, FuncPtr_Type funcptr, Args ... args) 
-//     {
-
-//         if(IoCContainer<FuncPtr_Type>::relevant_map.find(path) == IoCContainer<FuncPtr_Type>::relevant_map.end())
-//         {
-//             auto lm = [&, args...](FuncPtr_Type obj){
-//                 IoCContainer<FuncPtr_Type>::relevant_map.insert({path, obj});
-//                 return obj(args...);
-//             };
-//             return lm(funcptr);
-//         }
-
-        
-//         return IoCContainer<FuncPtr_Type>::relevant_map.find(path)->second(args...);
-//     }
-// };
-
-
-template <typename T>
-struct IoCContainer
+template <typename Function_type>
+struct IoCItem : IoCItemBase
 {
-    static std::map<std::string, T> relevant_map;
+    Function_type execute;
 };
-
-template <typename T>
-std::map<std::string, T> IoCContainer<T>::relevant_map;
-
 
 class IoC
 {
@@ -62,34 +26,64 @@ class IoC
 
 
 public:
-    template <class Return_Type, typename ... Args> 
-    static Return_Type resolve(std::string path, Args ... args) 
+    static std::map<std::string, std::shared_ptr<IoCItemBase>> IoCItems;
+
+    template <typename Return_Type, typename ... Args>
+    static Return_Type __resolve(std::string path, Args ... args)
     {
-        // auto func = std::forward<Args>(args);
-
-        auto&& arg = std::get<>(
-            std::forward_as_tuple(
-                std::forward<Args>(args)...));
-        auto lm = [&, arg](){
-            IoCContainer<Return_Type>::relevant_map.insert({path, arg});
-            return arg();
-        };
-
-        // if(IoCContainer<Return_Type>::relevant_map.find(path) == IoCContainer<Return_Type>::relevant_map.end())
+        auto item = IoC::IoCItems.find(path);
+        if(item == IoC::IoCItems.end())
         {
-        //      auto lm = [&, args...](FuncPtr_Type obj){
-        //          IoCContainer<Return_Type, FuncPtr_Type>::relevant_map.insert({path, obj});
-        //          return obj(args...);
-        //      };
+            using funcTypeName = std::tuple_element_t<0, std::tuple<Args...>>;
+            auto func = std::get<0>(std::tuple<Args...>(args...));
+            auto item = std::make_shared<IoCItem<funcTypeName>>();
+            item->execute = func;
+            IoC::IoCItems.insert({path, item});
+            return nullptr;
+        }
+        
+        using MyFunc_Type = IoCItem<std::function<Return_Type(Args...)>>;
 
-        //     std::cout << "create" << std::endl;
-        //      return lm(funcptr);
+        auto resolved = std::dynamic_pointer_cast<MyFunc_Type>(item->second);
+        if(resolved != nullptr)
+        {
+            return resolved->execute(args...);
+        }
+        else
+        {
+            std::cout << "not resolved" << std::endl;
+            throw std::runtime_error("not resolved");
         }
 
-        // std::cout << "load" << std::endl;
-        // return IoCContainer<Return_Type, FuncPtr_Type>::relevant_map.find(path)->second(args...);
-         return Return_Type();
+        return nullptr;
+    }
+
+    template <typename Return_Type>
+    static Return_Type __resolve(std::string path)
+    {
+        auto item = IoC::IoCItems.find(path);
+        if(item == IoC::IoCItems.end())
+        {
+            throw std::runtime_error("not resolved");
+            return nullptr;
+        }
+
+        using MyFunc_Type = IoCItem<std::function<Return_Type()>>;
+
+        auto resolved = std::dynamic_pointer_cast<MyFunc_Type>(item->second);
+        if(resolved != nullptr)
+        {
+            return resolved->execute();
+        }
+        else
+        {
+            std::cout << "not resolved" << std::endl;
+            throw std::runtime_error("not resolved");
+        }
+
+        return nullptr;
     }
 };
+
 
 #endif // IOC_H
