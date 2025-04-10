@@ -1,3 +1,4 @@
-#include "ioc.h"
+#include <ioc.h>
+#include <resolvercollection.h>
 
-std::map<std::string, std::shared_ptr<IoCItemBase>> IoC::IoCItems;
+IResolverCollectionPtr IoC::Resolvers = std::make_shared<ResolverCollection>();

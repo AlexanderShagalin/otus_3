@@ -1,89 +1,49 @@
-#ifndef IOC_H
-#define IOC_H
+#ifndef __IOC_H_INCLUDED__
+#define __IOC_H_INCLUDED__
 
-#include <iostream>
-#include <string>
-#include <memory>
-#include <map>
-#include <functional>
+#include <iresolvercollection.h>
+#include <resolvercontainer.h>
 #include <stdexcept>
-
-struct IoCItemBase {
-    virtual ~IoCItemBase() = default;
- };
-
-template <typename Function_type>
-struct IoCItem : IoCItemBase
-{
-    Function_type execute;
-};
+#include <string>
+#include <stdexcept>
+#include <memory>
+#include <functional>
 
 class IoC
 {
-    IoC() = delete;                      //disable constructor
-    IoC(const IoC&) = delete;            //disable copy-constructor
-    IoC& operator=(const IoC&) = delete; //disable copy-assignment
+    static IResolverCollectionPtr Resolvers;
 
+    IoC() {}
 
 public:
-    static std::map<std::string, std::shared_ptr<IoCItemBase>> IoCItems;
 
-    template <typename Return_Type, typename ... Args>
-    static Return_Type __resolve(std::string path, Args ... args)
+    template<typename ResultType, typename... Args>
+    static ResultType Resolve(std::string dependecy, Args... args)
     {
-        auto item = IoC::IoCItems.find(path);
-        if(item == IoC::IoCItems.end())
-        {
-            using funcTypeName = std::tuple_element_t<0, std::tuple<Args...>>;
-            auto func = std::get<0>(std::tuple<Args...>(args...));
-            auto item = std::make_shared<IoCItem<funcTypeName>>();
-            item->execute = func;
-            IoC::IoCItems.insert({path, item});
-            return nullptr;
-        }
-        
-        using MyFunc_Type = IoCItem<std::function<Return_Type(Args...)>>;
+        using ResolverContainerType = ResolverContainer<std::function<ResultType(Args...)>>;
 
-        auto resolved = std::dynamic_pointer_cast<MyFunc_Type>(item->second);
-        if(resolved != nullptr)
-        {
-            return resolved->execute(args...);
-        }
-        else
-        {
-            std::cout << "not resolved" << std::endl;
-            throw std::runtime_error("not resolved");
-        }
+        std::shared_ptr<ResolverContainerType> container =
+            std::dynamic_pointer_cast<ResolverContainerType>(IoC::Resolvers->findContainer(dependecy));
 
-        return nullptr;
+        if (container == nullptr)
+            throw std::runtime_error("IoC::Resolve(): resolver not found");
+
+        return container->getResolver()(args...);
     }
 
-    template <typename Return_Type>
-    static Return_Type __resolve(std::string path)
+    template<typename ResultType>
+    static ResultType Resolve(std::string dependecy)
     {
-        auto item = IoC::IoCItems.find(path);
-        if(item == IoC::IoCItems.end())
-        {
-            throw std::runtime_error("not resolved");
-            return nullptr;
-        }
+        using ResolverContainerType = ResolverContainer<std::function<ResultType()>>;
 
-        using MyFunc_Type = IoCItem<std::function<Return_Type()>>;
+        std::shared_ptr<ResolverContainerType> container =
+            std::dynamic_pointer_cast<ResolverContainerType>(IoC::Resolvers->findContainer(dependecy));
 
-        auto resolved = std::dynamic_pointer_cast<MyFunc_Type>(item->second);
-        if(resolved != nullptr)
-        {
-            return resolved->execute();
-        }
-        else
-        {
-            std::cout << "not resolved" << std::endl;
-            throw std::runtime_error("not resolved");
-        }
+        if (container == nullptr)
+            throw std::runtime_error("IoC::Resolve(): resolver not found");
 
-        return nullptr;
+        return container->getResolver()();
     }
 };
 
-
-#endif // IOC_H
+#endif
