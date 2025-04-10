@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 
 project(battlefield LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SRC ./source)
@@ -27,11 +27,21 @@ add_executable(battlefield  ${SRC}/commandqueue.cpp
                             ${SRC}/burnfuelcommand.cpp
                             ${SRC}/secondretrycommand.cpp
                             ${SRC}/changevelocitycommand.cpp
+                            ${SRC}/iocregistercommand.cpp
+                            ${SRC}/iocnewscopecommand.cpp
+                            ${SRC}/iocsetscoperelativecommand.cpp
+                            ${SRC}/iocsetscopeabsolutecommand.cpp
+                            ${SRC}/fallbackcommand.cpp
                             ${SRC}/macrocommand.cpp
                             ${SRC}/maneuveringcommand.cpp
                             ${SRC}/secondretryhandler.cpp
                             ${SRC}/strategy_1.cpp
                             ${SRC}/strategy_2.cpp
+                            ${SRC}/resolvercollection.cpp
+                            ${SRC}/scope.cpp
+                            ${SRC}/scopechangeradapter.cpp
+                            ${SRC}/ioc.cpp
+                            ${SRC}/scopecontainer.cpp
                             ${SRC}/battlecruiser.cpp
                             ${SRC}/main.cpp
                             )

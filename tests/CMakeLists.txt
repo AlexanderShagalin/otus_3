@@ -101,3 +101,87 @@ gtest_discover_tests(test_changevelocitycommand)
 add_executable(test_maneuveringcommand main.cpp test_maneuveringcommand.cpp ${PRJ_SRC_DIR}/vector2d.cpp ${PRJ_SRC_DIR}/angle.cpp ${PRJ_SRC_DIR}/maneuveringcommand.cpp )
 target_link_libraries(test_maneuveringcommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
 gtest_discover_tests(test_maneuveringcommand)
+
+add_executable(test_iocregistercommand main.cpp
+                        test_iocregistercommand.cpp
+                        ${PRJ_SRC_DIR}/scope.cpp
+                        ${PRJ_SRC_DIR}/resolvercollection.cpp
+                        ${PRJ_SRC_DIR}/scopecontainer.cpp
+                        ${PRJ_SRC_DIR}/scopechangeradapter.cpp
+                        ${PRJ_SRC_DIR}/macrocommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscoperelativecommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscopeabsolutecommand.cpp
+                        ${PRJ_SRC_DIR}/iocregistercommand.cpp
+                        ${PRJ_SRC_DIR}/iocnewscopecommand.cpp
+                        ${PRJ_SRC_DIR}/fallbackcommand.cpp
+                        ${PRJ_SRC_DIR}/ioc.cpp
+                    )
+target_link_libraries(test_iocregistercommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_iocregistercommand)
+
+add_executable(test_iocnewscopecommand main.cpp
+                        test_iocnewscopecommand.cpp
+                        ${PRJ_SRC_DIR}/scope.cpp
+                        ${PRJ_SRC_DIR}/resolvercollection.cpp
+                        ${PRJ_SRC_DIR}/scopecontainer.cpp
+                        ${PRJ_SRC_DIR}/scopechangeradapter.cpp
+                        ${PRJ_SRC_DIR}/macrocommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscoperelativecommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscopeabsolutecommand.cpp
+                        ${PRJ_SRC_DIR}/iocregistercommand.cpp
+                        ${PRJ_SRC_DIR}/iocnewscopecommand.cpp
+                        ${PRJ_SRC_DIR}/fallbackcommand.cpp
+                        ${PRJ_SRC_DIR}/ioc.cpp
+                    )
+target_link_libraries(test_iocnewscopecommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_iocnewscopecommand)
+
+add_executable(test_iocsetscoperelativecommand main.cpp
+                        test_iocsetscoperelativecommand.cpp
+                        ${PRJ_SRC_DIR}/scope.cpp
+                        ${PRJ_SRC_DIR}/resolvercollection.cpp
+                        ${PRJ_SRC_DIR}/scopecontainer.cpp
+                        ${PRJ_SRC_DIR}/scopechangeradapter.cpp
+                        ${PRJ_SRC_DIR}/macrocommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscoperelativecommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscopeabsolutecommand.cpp
+                        ${PRJ_SRC_DIR}/iocregistercommand.cpp
+                        ${PRJ_SRC_DIR}/iocnewscopecommand.cpp
+                        ${PRJ_SRC_DIR}/fallbackcommand.cpp
+                        ${PRJ_SRC_DIR}/ioc.cpp
+                    )
+target_link_libraries(test_iocsetscoperelativecommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_iocsetscoperelativecommand)
+
+add_executable(test_iocsetscopeabsolutecommand main.cpp
+                        test_iocsetscopeabsolutecommand.cpp
+                        ${PRJ_SRC_DIR}/scope.cpp
+                        ${PRJ_SRC_DIR}/resolvercollection.cpp
+                        ${PRJ_SRC_DIR}/scopecontainer.cpp
+                        ${PRJ_SRC_DIR}/scopechangeradapter.cpp
+                        ${PRJ_SRC_DIR}/macrocommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscoperelativecommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscopeabsolutecommand.cpp
+                        ${PRJ_SRC_DIR}/iocregistercommand.cpp
+                        ${PRJ_SRC_DIR}/iocnewscopecommand.cpp
+                        ${PRJ_SRC_DIR}/fallbackcommand.cpp
+                        ${PRJ_SRC_DIR}/ioc.cpp
+                    )
+target_link_libraries(test_iocsetscopeabsolutecommand PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_iocsetscopeabsolutecommand)
+
+add_executable(test_ioc main.cpp 
+                        test_ioc.cpp 
+                        ${PRJ_SRC_DIR}/scope.cpp 
+                        ${PRJ_SRC_DIR}/resolvercollection.cpp 
+                        ${PRJ_SRC_DIR}/scopecontainer.cpp 
+                        ${PRJ_SRC_DIR}/scopechangeradapter.cpp
+                        ${PRJ_SRC_DIR}/iocsetscoperelativecommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscopeabsolutecommand.cpp
+                        ${PRJ_SRC_DIR}/iocregistercommand.cpp
+                        ${PRJ_SRC_DIR}/iocnewscopecommand.cpp
+                        ${PRJ_SRC_DIR}/fallbackcommand.cpp
+                        ${PRJ_SRC_DIR}/ioc.cpp
+                    )
+target_link_libraries(test_ioc PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_ioc)
