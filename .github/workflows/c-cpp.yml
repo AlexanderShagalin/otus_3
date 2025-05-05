@@ -20,7 +20,7 @@ jobs:
       run: mkdir build-gen; cd build-gen; cmake ../generator; make;
 
     - name: Create classes
-      run: build-gen; ./generator ../ifaces ../include;
+      run: cd build-gen; ./generator ../ifaces ../include;
 
     - name: configure
       run: mkdir build; cd build; cmake ..;
