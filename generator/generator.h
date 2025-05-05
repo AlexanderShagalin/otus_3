@@ -16,6 +16,8 @@ string getContentFromFile( string filePath )
     string content, line;
     ifstream in_file(filePath);
 
+    cout << "Used interface: " << filePath << endl;
+
     if (!in_file.is_open()) {
         cout<<( "Error opening file\n");
         return "";
@@ -47,7 +49,7 @@ inline void ParseClassIn( string class_in, map<string,funcDescription*>* _funcs 
     while (regex_search( searchStart2, class_in.cend(), _match, propertyPattern )) {
 
         string funcName = (string)_match[2];
-       // cout<<funcName<<endl;
+        cout << funcName << endl;
         (*_funcs)[funcName] = new funcDescription{(string)_match[1], new list<string>(), new list<string>() };
         (*_funcs)[funcName]->argumentDescription->push_back(_match[4]);
         (*_funcs)[funcName]->argumentType->push_back(_match[3]);
@@ -98,7 +100,10 @@ string GetRequerement( string className, string funcName )
 
 void CreateAdapterFile( string AdapterName, string FileContent )
 {
+    cout << "CreateAdapterFile: " << AdapterName + ".h" <<  endl << FileContent << endl;
     ofstream ofile(AdapterName+".h");
+
+
 
     ofile<<FileContent;
 
@@ -121,7 +126,7 @@ bool CreateAdapters( map<string, map<string,funcDescription*>*>* pMapInterfaces,
 {
     for (auto pair : *pMapInterfaces) {
 
-        string content = "#ifndef "+toUpper(pair.first)+"_ADAPTER\n#define "+toUpper(pair.first)+"_ADAPTER\n\n#include \"ioc.h\"\n#include \"../ifaces/"+toLower(pair.first)+".h\"\n\n class "+pair.first+"Adapter: public I" + pair.first + " {\n";
+        string content = "#ifndef "+toUpper(pair.first)+"_ADAPTER\n#define "+toUpper(pair.first)+"_ADAPTER\n\n#include \"ioc.h\"\n class "+pair.first+"Adapter: public I" + pair.first + " {\n";
         content += "\n\tIResolverContainer* m_pObj;\n\n\tpublic:\n\t"+pair.first+"Adapter( IResolverContainer* pObj ) {\n\t\tm_pObj = pObj;\n\t}\n\n";
 
         for (auto func: *pair.second) {
