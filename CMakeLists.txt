@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SRC ./source)
 include_directories(./include)
+include_directories(./generated)
 
 enable_testing()
 

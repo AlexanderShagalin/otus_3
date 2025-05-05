@@ -18,6 +18,7 @@ find_package(Threads REQUIRED)
 find_package(GTest REQUIRED)
 include_directories(${INCLUDE_DIRECTORIES}, /usr/include)
 include_directories(${INCLUDE_DIRECTORIES}, ${PRJ_INC_DIR})
+include_directories(${INCLUDE_DIRECTORIES}, ${PRJ_DIR}/generated)
 include(GoogleTest)
 
 add_executable(test_angle main.cpp test_angle.cpp ${PRJ_SRC_DIR}/angle.cpp)
@@ -185,3 +186,19 @@ add_executable(test_ioc main.cpp
                     )
 target_link_libraries(test_ioc PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
 gtest_discover_tests(test_ioc)
+
+add_executable(test_generator main.cpp
+                        test_generator.cpp
+                        ${PRJ_SRC_DIR}/scope.cpp
+                        ${PRJ_SRC_DIR}/resolvercollection.cpp
+                        ${PRJ_SRC_DIR}/scopecontainer.cpp
+                        ${PRJ_SRC_DIR}/scopechangeradapter.cpp
+                        ${PRJ_SRC_DIR}/iocsetscoperelativecommand.cpp
+                        ${PRJ_SRC_DIR}/iocsetscopeabsolutecommand.cpp
+                        ${PRJ_SRC_DIR}/iocregistercommand.cpp
+                        ${PRJ_SRC_DIR}/iocnewscopecommand.cpp
+                        ${PRJ_SRC_DIR}/fallbackcommand.cpp
+                        ${PRJ_SRC_DIR}/ioc.cpp
+                    )
+target_link_libraries(test_generator PRIVATE ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} GTest::gmock Threads::Threads )
+gtest_discover_tests(test_generator)
