@@ -17,10 +17,10 @@ int main(int argc, char *argv[])
     for (const auto & entry : filesystem::directory_iterator(path))
     {
 
-        string iterfaceName = entry.path().string();
-        if(Parser(iterfaceName, &mapInterfaces))
+        string iterfacePath = entry.path().string();
+        if(Parser(iterfacePath, &mapInterfaces))
         {
-            CreateAdapters( &mapInterfaces, argv[2]);
+            CreateAdapters( &mapInterfaces, filesystem::path(iterfacePath).filename(), argv[2]);
         }
     }
 

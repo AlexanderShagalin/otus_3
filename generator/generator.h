@@ -100,7 +100,7 @@ string GetRequerement( string className, string funcName )
 
 void CreateAdapterFile( string AdapterName, string FileContent )
 {
-    cout << "CreateAdapterFile: " << AdapterName + ".h" <<  endl << FileContent << endl;
+//    cout << "CreateAdapterFile: " << AdapterName + ".h" <<  endl << FileContent << endl;
     ofstream ofile(AdapterName+".h");
 
 
@@ -122,12 +122,12 @@ string toLower( string str )
     return str;
 }
 
-bool CreateAdapters( map<string, map<string,funcDescription*>*>* pMapInterfaces, string outPath )
+bool CreateAdapters( map<string, map<string,funcDescription*>*>* pMapInterfaces, string interfaceFileName, string outPath )
 {
     for (auto pair : *pMapInterfaces) {
 
-        string content = "#ifndef "+toUpper(pair.first)+"_ADAPTER\n#define "+toUpper(pair.first)+"_ADAPTER\n\n#include \"ioc.h\"\n class "+pair.first+"Adapter: public I" + pair.first + " {\n";
-        content += "\n\tIResolverContainer* m_pObj;\n\n\tpublic:\n\t"+pair.first+"Adapter( IResolverContainer* pObj ) {\n\t\tm_pObj = pObj;\n\t}\n\n";
+        string content = "#ifndef "+toUpper(pair.first)+"_ADAPTER\n#define "+toUpper(pair.first)+"_ADAPTER\n\n#include \"ioc.h\"\n#include \"gameobject.h\"\n#include \"icommand.h\"\n#include \"" + interfaceFileName + "\"\n\n class "+pair.first+"Adapter: public I" + pair.first + " {\n";
+        content += "\n\tGameObjectPtr m_pObj;\n\n\tpublic:\n\t"+pair.first+"Adapter( GameObjectPtr pObj ) {\n\t\tm_pObj = pObj;\n\t}\n\n";
 
         for (auto func: *pair.second) {
 
@@ -138,7 +138,7 @@ bool CreateAdapters( map<string, map<string,funcDescription*>*>* pMapInterfaces,
             {
                 content += type ;
                 if(!type.empty())
-                    setTypes += " ,"+type;
+                    setTypes += ", "+type;
             }
 
             string setNames = "";
@@ -146,19 +146,34 @@ bool CreateAdapters( map<string, map<string,funcDescription*>*>* pMapInterfaces,
             {
                 content += " "+param ;
                 if(!param.empty())
-                    setNames += " ,"+param;
+                    setNames += ", "+param;
             }
 
             content += "){\n\t\t";
             if( func.second->returnType != "void"  )
-                content += "return ";
-
-            content += "IoC::Resolve<"+func.second->returnType+",IResolverContainer*"+ setTypes +" >("+GetRequerement(pair.first,func.first)+", m_pObj"+ setNames +");\n\t}\n\n";
+            {
+                content += "return IoC::Resolve<" + func.second->returnType + ">("+GetRequerement(pair.first,func.first)+", m_pObj"+ setNames +");\n\t}\n\n";
+            }
+            else
+            {
+                content += "IoC::Resolve<void>("+GetRequerement(pair.first,func.first)+", m_pObj"+ setNames +");\n\t}\n\n";
+            }
         }
+
+        content += "static void Register() \n{";
+        content += " \
+IoC::Resolve<ICommandPtr>( \
+\"IoC.Register\",\"" +
+pair.first + "\", \
+make_container(std::function<std::shared_ptr<" + pair.first + "Adapter>(GameObjectPtr)>( [](GameObjectPtr obj){ return std::make_shared<" + pair.first + "Adapter>(obj); } )) \
+)->execute();";
+
+        content += "\n}\n";
+
         content += "};\n\n";
-        content += "class "+pair.first+"AdapterRegistration: public ICommand\n{\n\tpublic:\n\t"+pair.first+"AdapterRegistration()\n\t{\n\t\n\t}\n\t\n\tvoid Execute()\n\t";
-        content += "{\n\t\tIoC::Resolve<ICommand*, string, IResolverContainer*>(\"IoC.Register\",\"Adapter.I"+pair.first+"\", new ResolverContainer<function<"+pair.first+"Adapter*(IResolverContainer*)>>";
-        content += " (\n\t\t\tfunction<"+pair.first+"Adapter*(IResolverContainer*)>([&](IResolverContainer* obj){\n\t\t\t\treturn new "+pair.first+"Adapter(obj);\n\t\t\t})\n\t\t) )->Execute();\n\t}\n};\n";
+//        content += "class "+pair.first+"AdapterRegistration: public ICommand\n{\n\tpublic:\n\t"+pair.first+"AdapterRegistration()\n\t{\n\t\n\t}\n\t\n\tvoid Execute()\n\t";
+//        content += "{\n\t\tIoC::Resolve<ICommandPtr, string, GameObjectPtr>(\"IoC.Register\",\"Adapter.I"+pair.first+"\", new ResolverContainer<function<"+pair.first+"Adapter*(GameObjectPtr)>>";
+//        content += " (\n\t\t\tfunction<"+pair.first+"Adapter*(GameObjectPtr)>([&](GameObjectPtr obj){\n\t\t\t\treturn new "+pair.first+"Adapter(obj);\n\t\t\t})\n\t\t) )->Execute();\n\t}\n};\n";
         content += "\n#endif\n";
         CreateAdapterFile(outPath+"/"+pair.first+"Adapter", content);
     }
