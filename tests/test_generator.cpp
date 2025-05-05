@@ -37,7 +37,7 @@ TEST(Generator, UsageFunction)
     std::shared_ptr<GO> obj = std::make_shared<GO>();
     IoC::Resolve<ICommandPtr>("IoC.Scope.Current.Set", "/")->execute();
 
-//    FueledAdapter::Register();
+    FueledAdapter::Register();
     IoC::Resolve<ICommandPtr>(
         "IoC.Register",
         "Fueled.FuelCount.set",
