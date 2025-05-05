@@ -2,7 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [ "main", "devel", "otus_4" ]
+    branches: [ "main", "devel", "otus_4", "generator" ]
   pull_request:
     branches: [ "main" ]
 
