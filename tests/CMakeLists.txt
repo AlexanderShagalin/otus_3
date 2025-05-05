@@ -18,6 +18,7 @@ find_package(Threads REQUIRED)
 find_package(GTest REQUIRED)
 include_directories(${INCLUDE_DIRECTORIES}, /usr/include)
 include_directories(${INCLUDE_DIRECTORIES}, ${PRJ_INC_DIR})
+include_directories(${INCLUDE_DIRECTORIES}, ${PRJ_DIR}/generated)
 include(GoogleTest)
 
 add_executable(test_angle main.cpp test_angle.cpp ${PRJ_SRC_DIR}/angle.cpp)

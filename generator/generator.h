@@ -121,7 +121,7 @@ bool CreateAdapters( map<string, map<string,funcDescription*>*>* pMapInterfaces,
 {
     for (auto pair : *pMapInterfaces) {
 
-        string content = "#ifndef "+toUpper(pair.first)+"_ADAPTER\n#define "+toUpper(pair.first)+"_ADAPTER\n\n#include \"../IoCcontainer.h\"\n#include \"../interfaces_obj/"+toLower(pair.first)+".h\"\n\n class "+pair.first+"Adapter: public I" + pair.first + " {\n";
+        string content = "#ifndef "+toUpper(pair.first)+"_ADAPTER\n#define "+toUpper(pair.first)+"_ADAPTER\n\n#include \"ioc.h\"\n#include \"../ifaces/"+toLower(pair.first)+".h\"\n\n class "+pair.first+"Adapter: public I" + pair.first + " {\n";
         content += "\n\tIResolverContainer* m_pObj;\n\n\tpublic:\n\t"+pair.first+"Adapter( IResolverContainer* pObj ) {\n\t\tm_pObj = pObj;\n\t}\n\n";
 
         for (auto func: *pair.second) {
